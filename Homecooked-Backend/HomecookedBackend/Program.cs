@@ -7,7 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Homecooked API",
+        Version = "v1",
+        Description = "Smart Tiffin Service Platform APIs",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "Homecooked Team",
+            Email = "support@homecooked.com"
+        }
+    });
+});
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
@@ -16,14 +30,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 
+
 // CORS (basic, refined later)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
+
 
 var app = builder.Build();
 
@@ -34,8 +53,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("FrontendPolicy");
 app.UseAuthorization();
 app.MapControllers();
 
