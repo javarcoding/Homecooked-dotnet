@@ -23,6 +23,10 @@ namespace HomecookedBackend.Models
         [Required]
         public UserRole Role { get; set; }
 
+        public ICollection<Meal> Meals { get; set; } = new List<Meal>();
+
+
+
         public bool IsActive { get; set; } = true;
 
         public bool IsVerified { get; set; } = false;

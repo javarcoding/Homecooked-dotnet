@@ -14,15 +14,27 @@ namespace HomecookedBackend.Data
         // public DbSet<User> Users { get; set; }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Convert Role enum to string in DB
             modelBuilder
                 .Entity<User>()
                 .Property(u => u.Role)
                 .HasConversion<string>();
+
+            // Register all Fluent API configurations
+            modelBuilder.ApplyConfigurationsFromAssembly(
+                typeof(ApplicationDbContext).Assembly
+            );
+
+            base.OnModelCreating(modelBuilder);
         }
+
+
 
     }
 }
