@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../store/slices/authSlice";
+import { registerUser } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -34,7 +34,7 @@ const Register = () => {
     // ✅ Optional: verify payload once
     console.log("REGISTER PAYLOAD:", formData);
 
-    dispatch(register(formData));
+    dispatch(registerUser(formData));
   };
 
   useEffect(() => {
@@ -136,3 +136,5 @@ const Register = () => {
 };
 
 export default Register;
+
+

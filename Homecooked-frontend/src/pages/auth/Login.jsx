@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/slices/authSlice";
+import { loginUser } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { getRedirectPathByRole } from "../../utils/roleRedirect";
+
+
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated, isLoading, error } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, isLoading, error, user } = useSelector(
+  (state) => state.auth
+);
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,14 +26,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(formData));
+    dispatch(loginUser(formData));
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/"); // temporary redirect
-    }
-  }, [isAuthenticated, navigate]);
+
+ useEffect(() => {
+  if (isAuthenticated && user?.role) {
+    navigate(getRedirectPathByRole(user.role), { replace: true });
+  }
+}, [isAuthenticated, user?.role, navigate]);
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
