@@ -11,6 +11,9 @@ import CustomerHome from "./pages/customer/CustomerHome";
 import ChefDashboard from "./pages/chef/ChefDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import DeliveryDashboard from "./pages/delivery/DeliveryDashboard";
+import BrowseMeals from "./pages/customer/BrowseMeals";
+
+
 
 function App() {
   console.log("API URL:", import.meta.env.VITE_API_BASE_URL);
@@ -24,7 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/" element={<Home />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
@@ -33,6 +36,9 @@ function App() {
         <Route path="/chef/dashboard" element={<ChefDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/delivery/dashboard" element={<DeliveryDashboard />} />
+        <Route path="/meals" element={<BrowseMeals />} />
+
+
 
       </Routes>
     </Router>

@@ -19,6 +19,11 @@ namespace HomecookedBackend.Models
         [Column(TypeName = "decimal(10,2)")]
         public decimal Price { get; set; }
 
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
+
+
+
         public bool IsAvailable { get; set; } = true;
 
         public bool IsFeatured { get; set; } = false;

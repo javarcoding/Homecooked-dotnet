@@ -25,6 +25,8 @@ namespace HomecookedBackend.Models
 
         public ICollection<Meal> Meals { get; set; } = new List<Meal>();
 
+        public ChefProfile? ChefProfile { get; set; }
+
 
 
         public bool IsActive { get; set; } = true;

@@ -16,6 +16,12 @@ namespace HomecookedBackend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Meal> Meals { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+
+        public DbSet<ChefProfile> ChefProfiles { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

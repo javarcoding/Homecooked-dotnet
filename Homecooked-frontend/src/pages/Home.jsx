@@ -1,43 +1,45 @@
-import Navbar from "../components/Navbar";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFeaturedMeals } from "../store/slices/mealSlice";
+import MealCard from "../components/meals/MealCard";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const { featuredMeals, loading, error } = useSelector(
+    (state) => state.meals
+  );
+
+  useEffect(() => {
+    dispatch(fetchFeaturedMeals());
+  }, [dispatch]);
+
   return (
-    <>
-      <Navbar />
+    <div className="container mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold mb-6">
+        🍱 Featured Home-Cooked Meals
+      </h1>
 
-      <div className="p-6">
-        <h2 className="text-3xl font-bold">
-          Welcome to Homecooked
-        </h2>
-      </div>
-      <div className="min-h-screen bg-gray-50">
-      <section className="bg-orange-500 text-white py-16 text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          Homecooked – Smart Tiffin Service
-        </h1>
-        <p className="text-lg">
-          Fresh homemade food from trusted local chefs
+      {loading && (
+        <p className="text-gray-500">Loading meals...</p>
+      )}
+
+      {error && (
+        <p className="text-red-500">{error}</p>
+      )}
+
+      {!loading && featuredMeals.length === 0 && (
+        <p className="text-gray-500">
+          No featured meals available.
         </p>
-      </section>
+      )}
 
-      <section className="py-12 px-6 grid md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 shadow rounded">
-          <h3 className="font-semibold text-lg mb-2">For Customers</h3>
-          <p>Order healthy meals daily from verified chefs.</p>
-        </div>
-
-        <div className="bg-white p-6 shadow rounded">
-          <h3 className="font-semibold text-lg mb-2">For Chefs</h3>
-          <p>Earn by cooking delicious meals from your home.</p>
-        </div>
-
-        <div className="bg-white p-6 shadow rounded">
-          <h3 className="font-semibold text-lg mb-2">Fast Delivery</h3>
-          <p>Quick doorstep delivery with live tracking.</p>
-        </div>
-      </section>
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {featuredMeals.map((meal) => (
+          <MealCard key={meal.id} meal={meal} />
+        ))}
+      </div>
     </div>
-    </>
   );
 };
 

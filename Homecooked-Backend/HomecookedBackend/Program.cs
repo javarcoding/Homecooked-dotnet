@@ -1,6 +1,8 @@
 using HomecookedBackend.Data;
 using HomecookedBackend.Helpers;
 using HomecookedBackend.Repositories;
+using HomecookedBackend.Repositories.Implementations;
+using HomecookedBackend.Repositories.Interfaces;
 using HomecookedBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -83,6 +85,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IMealRepository, MealRepository>();
+builder.Services.AddScoped<IMealService, MealService>();
+
 
 
 
