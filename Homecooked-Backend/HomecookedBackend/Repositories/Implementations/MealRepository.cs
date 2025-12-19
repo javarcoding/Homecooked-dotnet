@@ -14,6 +14,13 @@ namespace HomecookedBackend.Repositories.Implementations
             _context = context;
         }
 
+        public async Task AddMealAsync(Meal meal)
+        {
+            _context.Meals.Add(meal);
+            await _context.SaveChangesAsync();
+        }
+
+
         public async Task<List<Meal>> GetFeaturedMealsAsync()
         {
             return await _context.Meals

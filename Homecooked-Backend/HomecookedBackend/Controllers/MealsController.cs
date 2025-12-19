@@ -1,5 +1,8 @@
-﻿using HomecookedBackend.Repositories.Interfaces;
+﻿using HomecookedBackend.DTOs.Meal;
+using HomecookedBackend.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HomecookedBackend.Controllers
 {
@@ -13,6 +16,16 @@ namespace HomecookedBackend.Controllers
         {
             _mealService = mealService;
         }
+
+        [Authorize(Roles = "CHEF")]
+        [HttpPost]
+        public async Task<IActionResult> AddMeal(AddMealDto dto)
+        {
+            var chefId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            await _mealService.AddMealAsync(dto, chefId);
+            return Ok(new { message = "Meal added successfully" });
+        }
+
 
         [HttpGet("featured")]
         public async Task<IActionResult> GetFeaturedMeals()

@@ -1,7 +1,7 @@
 ﻿using HomecookedBackend.DTOs.Auth;
 using HomecookedBackend.Models;
-using HomecookedBackend.Repositories;
 using HomecookedBackend.Helpers;
+using HomecookedBackend.Repositories;
 
 namespace HomecookedBackend.Services
 {

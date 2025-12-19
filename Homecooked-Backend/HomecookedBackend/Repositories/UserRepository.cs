@@ -13,6 +13,12 @@ namespace HomecookedBackend.Repositories
             _context = context;
         }
 
+        public async Task<User?> GetByIdAsync(Guid id)
+        {
+            return await _context.Users
+                .Include(u => u.ChefProfile)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
 
 
         public async Task<bool> EmailExistsAsync(string email)
@@ -32,6 +38,12 @@ namespace HomecookedBackend.Repositories
         {
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task AddAsync(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
         }
 
 
