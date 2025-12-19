@@ -30,7 +30,8 @@ export const browseMeals = createAsyncThunk(
   "meals/browse",
   async (filters, { rejectWithValue }) => {
     try {
-      return await mealService.browseMeals(filters);
+      return (await mealService.browseMeals(filters)).data;
+
     } catch {
       return rejectWithValue("Failed to load meals");
     }

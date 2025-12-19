@@ -1,10 +1,12 @@
 import axiosInstance from "../api/axiosInstance";
 
-const mealService = {
-  getFeaturedMeals: async () => {
-    const response = await axiosInstance.get("/meals/featured");
-    return response.data;
-  },
-};
+const browseMeals = (filters) =>
+  axiosInstance.get("/meals", { params: filters });
 
-export default mealService;
+const getFeaturedMeals = () =>
+  axiosInstance.get("/meals/featured");
+
+export default {
+  browseMeals,
+  getFeaturedMeals
+};
